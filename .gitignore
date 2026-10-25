@@ -1,0 +1,43 @@
+# Secrets and Instagram sessions
+.env
+.env.*
+!.env.example
+*_session.json
+
+# Third-party MCP server, cloned here from its upstream repo (see README)
+instagram_dm_mcp/
+
+# Personal config and state (written by login_once.py and by each run)
+config.json
+state.json
+context.md
+backlog.md
+
+# Run output: digests, downloaded reels, transcripts, keyframes, logs
+digests/
+media/
+logs/
+*.log
+*.out
+*.transcript.txt
+*.frame-*.jpg
+
+# Downloaded media anywhere in the tree
+*.mp4
+*.mov
+*.m4a
+*.mp3
+*.wav
+*.heic
+
+# Python and caches
+.venv/
+__pycache__/
+*.pyc
+.cache/
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# macOS
+.DS_Store

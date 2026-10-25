@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template: replace /path/to/reel-digest with the absolute path of this folder (see README, "Run it every morning"). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.reeldigest.morning</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/path/to/reel-digest/run_digest.sh</string>
+  </array>
+  <!-- At every login (covers a Mac that was shut down at 7:47; run_digest.sh skips if today's digest exists) -->
+  <key>RunAtLoad</key>
+  <true/>
+  <!-- and 7:47 every morning. If the Mac is asleep then, launchd runs it on wake. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>7</integer>
+    <key>Minute</key>
+    <integer>47</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/path/to/reel-digest/logs/launchd.out</string>
+  <key>StandardErrorPath</key>
+  <string>/path/to/reel-digest/logs/launchd.err</string>
+</dict>
+</plist>

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "instagram_dms": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/path/to/reel-digest/instagram_dm_mcp",
+        "python",
+        "src/mcp_server.py"
+      ]
+    }
+  }
+}
