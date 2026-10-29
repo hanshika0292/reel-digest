@@ -11,3 +11,9 @@ dependencies = [
 [tool.uv]
 # onnxruntime (pulled in by faster-whisper for VAD) dropped Intel-Mac wheels in newer releases
 required-environments = ["sys_platform == 'darwin' and platform_machine == 'x86_64'"]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

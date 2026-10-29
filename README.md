@@ -131,6 +131,8 @@ cp .env.example instagram_dm_mcp/.env && chmod 600 instagram_dm_mcp/.env   # the
 uv sync --project tools                                                    # faster-whisper, markdown-it-py
 ```
 
+To run the tests (they mock ffmpeg and Whisper, so they need neither): `uv run --project tools pytest tools/tests`
+
 The project reads these environment variables from `instagram_dm_mcp/.env`:
 
 | Variable | What it is for |
@@ -209,13 +211,15 @@ reel-digest/
 ├── tools/
 │   ├── process_reel.py           video → keyframes (ffmpeg) and transcript (faster-whisper)
 │   ├── render_digest.py          digest Markdown → standalone HTML page
+│   ├── tests/                    pytest tests for both tools (ffmpeg and Whisper are mocked)
 │   ├── pyproject.toml
 │   └── uv.lock
 ├── context.example.md            template for context.md (your goals)
 ├── examples/sample-digest.md     a short, fictional digest
 ├── com.reeldigest.morning.plist  launchd template: 7:47 daily and at login
 ├── .mcp.json                     Claude Code MCP config for the Instagram server (template path)
-└── .env.example                  Instagram credentials, copied to instagram_dm_mcp/.env
+├── .env.example                  Instagram credentials, copied to instagram_dm_mcp/.env
+└── LICENSE                       MIT
 ```
 
 These are created locally and gitignored: `instagram_dm_mcp/` (the cloned server, its `.env` and the session file),
@@ -224,7 +228,7 @@ These are created locally and gitignored: `instagram_dm_mcp/` (the cloned server
 ## Status and limitations
 
 - This is a personal tool that I run every morning on my own Mac. It only runs on macOS, it isn't packaged for other
-  people, and it has no automated tests.
+  people. Tests cover `tools/` only; the shell scripts and the agent run are tested by hand.
 - **It uses an unofficial Instagram API.** The MCP server is built on instagrapi, which imitates the Instagram mobile
   app to call Instagram's private API. It can break whenever Instagram changes something, and automated access like
   this can conflict with Instagram's Terms of Use. Instagram may challenge, rate-limit or lock the account. It is meant
@@ -238,3 +242,7 @@ These are created locally and gitignored: `instagram_dm_mcp/` (the cloned server
 - It only sees the group's latest 100 messages, and only 4 keyframes per video, so on-screen text shown between
   keyframes can be missed.
 - Runs are slow and use Claude Code usage: up to 12 reels, local transcription on the CPU, and a 60-minute limit.
+
+## License
+
+[MIT](LICENSE)
