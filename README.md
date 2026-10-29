@@ -81,7 +81,7 @@ flowchart LR
 ## Tech stack
 
 - **Claude Code CLI**, run headless (`claude -p`) as the agent, with tool allow and deny lists
-- **MCP:** [instagram_dm_mcp](https://github.com/trypeggy/instagram_dm_mcp), built on
+- **MCP:** [instagram_dm_mcp](https://github.com/hanshika0292/instagram_dm_mcp) (my fork of trypeggy's server), built on
   [instagrapi](https://github.com/subzeroid/instagrapi)
 - **Python 3.11 or 3.12** with **uv**: faster-whisper for local speech-to-text, markdown-it-py for the HTML page
 - **ffmpeg and ffprobe** for keyframes and video duration
@@ -100,29 +100,21 @@ flowchart LR
 
 ### 1. Clone this repo and the Instagram MCP server
 
-The Instagram MCP server is a separate project. Clone it into `instagram_dm_mcp/` inside this folder. That path is
-gitignored, and the scripts expect the server there.
+The Instagram MCP server is a separate project. Clone
+[my fork of it](https://github.com/hanshika0292/instagram_dm_mcp) into `instagram_dm_mcp/` inside this folder. That
+path is gitignored, and the scripts expect the server there.
 
 ```sh
-git clone <this repo's URL> reel-digest
+git clone https://github.com/hanshika0292/reel-digest.git
 cd reel-digest
-git clone https://github.com/trypeggy/instagram_dm_mcp.git instagram_dm_mcp
+git clone https://github.com/hanshika0292/instagram_dm_mcp.git instagram_dm_mcp
+uv sync --project instagram_dm_mcp
 ```
 
-**The upstream server needs changes before the digest works.** I built this against upstream commit `7c2b8c5` plus
-local changes that are not part of this repo. Check upstream first, since some of these may have been fixed since:
-
-- **Upgrade `instagrapi`** from 2.1.5 to 3.0.26 or newer. Instagram rejects the app version that 2.1.5 imitates
-  ("Your version of Instagram is out of date").
-- **Add a `list_messages_compact(thread_id, amount, since_timestamp)` tool.** It returns each message's ID,
-  timestamp, sender ("me" for your own messages), text, link, and a `shared_post` object with `code`, `url`,
-  `caption`, `author` and `video_duration`. The prompt and the tool allowlist in `run_digest.sh` use this name.
-- **Read shared reels correctly.** instagrapi parses `clip` and `media_share` into model objects (the upstream code
-  called `.get()` on them and crashed), and newer reel shares arrive as `xma_share`.
-- **Return `caption`, `author` and `video_duration`** from `download_shared_post_from_message`.
-- **Reuse the saved session without calling `login()`**, and load it with `override_app_version=True`. Raise an error
-  instead of prompting when Instagram asks for verification, because a prompt would hang the stdio server. Wait 1 to
-  3 seconds between API calls (`client.delay_range = [1, 3]`).
+Use the fork, not [upstream](https://github.com/trypeggy/instagram_dm_mcp). Upstream's pinned instagrapi is rejected
+by Instagram, it crashes on shared reels, and it lacks the `list_messages_compact` tool the digest uses. The fork
+fixes these; the fixes are also open as upstream PRs
+[#14](https://github.com/trypeggy/instagram_dm_mcp/pull/14)–[#17](https://github.com/trypeggy/instagram_dm_mcp/pull/17).
 
 ### 2. Add credentials and install the Python tools
 
@@ -234,8 +226,8 @@ These are created locally and gitignored: `instagram_dm_mcp/` (the cloned server
   this can conflict with Instagram's Terms of Use. Instagram may challenge, rate-limit or lock the account. It is meant
   for your own account only, reading a group you are a member of. Keep it to one run a day.
 - Sessions expire. When one does, you copy a fresh `sessionid` by hand; the unattended run can't log in.
-- It depends on a patched third-party MCP server (see [step 1](#1-clone-this-repo-and-the-instagram-mcp-server)).
-  Without those changes, the digest won't run.
+- It depends on my fork of a third-party MCP server (see [step 1](#1-clone-this-repo-and-the-instagram-mcp-server)).
+  The original upstream server won't work with the digest.
 - Reels are written by strangers, so prompt injection is a real risk. The prompt says to treat them as data, and the
   tool lists block sending, limit writes to three paths and allow one shell command. The agent can still search and
   fetch web pages, so this reduces the risk but doesn't remove it.
