@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hanshika Gupta. See LICENSE.
 """Render a digest's Markdown into a standalone HTML page next to it (same name, .html).
 
 Usage: render_digest.py digests/2026-10-20.md

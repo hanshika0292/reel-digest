@@ -1,4 +1,6 @@
 #!/usr/bin/env -S uv run --project instagram_dm_mcp python
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hanshika Gupta. See LICENSE.
 """One-time (or when-expired) Instagram login for the morning reel digest.
 
 Run this yourself in a terminal; it needs a sessionid copied from your browser

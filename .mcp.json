@@ -4,6 +4,7 @@
       "command": "uv",
       "args": [
         "run",
+        "--frozen",
         "--directory",
         "/path/to/reel-digest/instagram_dm_mcp",
         "python",

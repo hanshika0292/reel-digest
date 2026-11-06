@@ -3,14 +3,19 @@ name = "reel-digest-tools"
 version = "0.1.0"
 description = "Transcribe downloaded reels and extract keyframes for the morning digest"
 requires-python = ">=3.11,<3.13"
+license = "MIT"
 dependencies = [
     "faster-whisper>=1.1.0",
     "markdown-it-py>=4.2.0",
 ]
 
 [tool.uv]
-# onnxruntime (pulled in by faster-whisper for VAD) dropped Intel-Mac wheels in newer releases
-required-environments = ["sys_platform == 'darwin' and platform_machine == 'x86_64'"]
+# Lock wheels for both Apple silicon and Intel Macs. onnxruntime (pulled in by faster-whisper for VAD)
+# dropped Intel-Mac wheels in newer releases, so the Intel entry keeps it on a version that still has them.
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
 
 [dependency-groups]
 dev = ["pytest>=8"]
