@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hanshika Gupta. See LICENSE.
 """Turn a downloaded reel into something Claude can read: a transcript plus a few keyframes.
 
 Usage: process_reel.py VIDEO [--frames N] [--model NAME]

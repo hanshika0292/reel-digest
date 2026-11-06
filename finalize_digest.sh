@@ -1,4 +1,6 @@
 #!/bin/zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Hanshika Gupta. See LICENSE.
 # Keep only what a digest needs: copy the images it embeds from media/<date>/ into digests/img/<date>/,
 # repoint its links, then delete that day's downloads (videos, transcripts, unused frames).
 #   ./finalize_digest.sh 2026-10-20
