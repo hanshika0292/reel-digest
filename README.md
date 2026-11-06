@@ -22,7 +22,15 @@
 
 ## Contents
 
-[Features](#features) · [How it works](#how-it-works) · [Getting started](#getting-started) · [Day to day](#day-to-day) · [FAQ](#faq) · [Project structure](#project-structure) · [Status and limitations](#status-and-limitations) · [Contributing](#contributing) · [License](#license)
+· [Features](#features) 
+· [How it works](#how-it-works) 
+· [Getting started](#getting-started) 
+· [Day to day](#day-to-day) 
+· [FAQ](#faq) 
+· [Project structure](#project-structure) 
+· [Status and limitations](#status-and-limitations) 
+· [Contributing](#contributing) 
+· [License](#license)
 
 ## Features
 
