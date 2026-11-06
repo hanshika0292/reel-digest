@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # Reel Digest is macOS-only (launchd, osascript, BSD sed), so test where it runs.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Tests for tools/ (ffmpeg and Whisper are mocked)
+        run: uv run --project tools --locked pytest tools/tests -v
+
+      - name: Shell scripts parse
+        run: |
+          zsh -n run_digest.sh
+          zsh -n finalize_digest.sh
+          zsh -n wait_for_user.zsh
+
+      - name: login_once.py compiles
+        run: python3 -m py_compile login_once.py
+
+      - name: launchd template and MCP config are valid
+        run: |
+          plutil -lint com.reeldigest.morning.plist
+          python3 -m json.tool .mcp.json > /dev/null

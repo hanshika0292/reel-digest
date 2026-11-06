@@ -1,5 +1,6 @@
 # Reel Digest: turn saved Instagram reels into step-by-step workflows with Claude Code
 
+[![CI](https://github.com/hanshika0292/reel-digest/actions/workflows/ci.yml/badge.svg)](https://github.com/hanshika0292/reel-digest/actions/workflows/ci.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![macOS](https://img.shields.io/badge/macOS-Apple%20Silicon%20%2B%20Intel-lightgrey.svg)
 ![Claude Code](https://img.shields.io/badge/agent-Claude%20Code%20%2B%20MCP-d97757.svg)
